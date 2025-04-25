@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoaderData, useParams } from 'react-router-dom'
+import { useLoaderData} from 'react-router-dom'
 
 const JobDetails = () => {
 
@@ -18,10 +18,11 @@ const jobDetails  = useLoaderData()
 
 export default JobDetails
 
-//exporting the loader function we have,
-
 export const jobDetailsLoader = async ({params})=>{
     const {id} = params;
-    const res = await fetch(`http://localhost:5000/jobs/${id}`); //providing the id dynamically
+    const res = await fetch(`http://localhost:5000/jobs/${id}`);
+    if (!res.ok){ 
+        throw Error("Could not find job details")
+    }
     return res.json();
 }
